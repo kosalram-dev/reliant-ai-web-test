@@ -116,6 +116,9 @@ const formData = async (
   } else {
     client.defaults.headers.common.Authorization = null;
   }
+
+  client.defaults.headers.common['X-RapidAPI-Key'] = process.env.NEXT_PUBLIC_RAPIDAPI_KEY;
+  client.defaults.headers.common['X-RapidAPI-Host'] = process.env.NEXT_PUBLIC_RAPIDAPI_HOST;
   return data;
 };
 

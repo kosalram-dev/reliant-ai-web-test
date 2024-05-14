@@ -10,16 +10,40 @@ export interface THomeState {
 
 const initialState: THomeState = {
     loading: true,
-    products:  []
+    products:  [],
 };
 
 const slice = createSlice({
   name: 'home',
   initialState,
   reducers: {
-    getAllProductsRequest: (state) => state,
-    getAllProductsSuccess: (state) => state,
-    getAllProductsFail: (state) => state,
+    getAllProductsRequest: (state) => {
+      return {
+        ...state,
+        loading: true,
+      }
+    },
+    getAllProductsSuccess: (state, action) => {
+      return {
+        ...state,
+        products: action.payload,
+        loading: false,
+      };
+    },
+    getAllProductsFail: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
+    updateProducts: (state, action) => {
+      const data = action.payload;
+
+      return {
+        ...state,
+        products: data,
+      };
+    },
   },
 });
 
@@ -37,4 +61,7 @@ export const getAllProductsAction = () => async (dispatch: AppDispatch) => {
   }
 };
 
-
+export const updateProductsAction = (data: TProduct[]) => async (dispatch: AppDispatch) => {
+  const { updateProducts } = slice.actions;
+  dispatch(updateProducts(data));
+};

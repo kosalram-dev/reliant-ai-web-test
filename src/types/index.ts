@@ -1,4 +1,14 @@
+export type TRating = {
+    rate: number;
+    count: number;
+};
+
 export type TProduct = {
-    url: string;
-    name: string;
+    price: number;
+    title: string;
+    id: number;
+    description: string;
+    category: string;
+    image: string;
+    rating: TRating;
 };
