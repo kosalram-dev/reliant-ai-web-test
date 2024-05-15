@@ -1,3 +1,7 @@
+/*
+  This module combines multiple reducers into a single rootReducer for Redux store configuration.
+*/
+
 import { combineReducers, type Action } from '@reduxjs/toolkit';
 import { type THomeState, reducer as homeReducer } from '@/store/slices/home';
 

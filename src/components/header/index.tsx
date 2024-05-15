@@ -1,3 +1,10 @@
+/**
+ * Header Component
+ *
+ * This component represents the header of the application.
+ * It displays the logo using the Next.js Image component.
+ */
+
 import Image from "next/image";
 import React, { FunctionComponent } from "react";
 

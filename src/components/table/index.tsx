@@ -1,3 +1,11 @@
+/**
+ * Table Component
+ *
+ * This component renders a table using the Ag-Grid library with React.
+ * It allows customization of column definitions, row data, and various grid options.
+ * The table can be easily integrated into NextJs applications for displaying tabular data.
+ */
+
 import { useMemo } from "react";
 
 import { AgGridReact } from "ag-grid-react";
@@ -25,6 +33,7 @@ const Table = <T,>({
   title,
   children,
 }: TableProps<T>) => {
+  // Memoizing default column definition to prevent unnecessary re-renders
   const defaultColDef = useMemo<ColDef>(() => {
     return {
       editable: true,
@@ -36,12 +45,14 @@ const Table = <T,>({
     };
   }, []);
 
+  // Memoizing grid options to prevent unnecessary re-renders
   const gridOptions = useMemo<GridOptions>(() => {
     return {
       rowHeight: 64,
     };
   }, []);
 
+  // Memoizing auto size strategy to prevent unnecessary re-renders
   const autoSizeStrategy = useMemo<SizeColumnsToContentStrategy>(
     () => ({
       type: "fitCellContents",

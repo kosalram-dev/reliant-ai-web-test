@@ -1,3 +1,10 @@
+/**
+ * Rating Component
+ *
+ * This component displays a rating using stars. It takes a 'rate' prop which represents
+ * the rating out of 5 and renders filled, half-filled, or empty stars accordingly.
+ */
+
 import Image from "next/image";
 
 import StarFull from "@/assets/star-full.png";

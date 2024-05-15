@@ -1,3 +1,7 @@
+/*
+  This module defines a slice of state and related actions for managing home-related data in the Redux store.
+*/
+
 import { createSlice } from '@reduxjs/toolkit';
 import { homeService } from '@/store/services';
 import { AppDispatch } from '..';

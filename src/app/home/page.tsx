@@ -18,6 +18,7 @@ import {
 import { type TProduct } from "@/types";
 import { REVIEW_COUNTS } from "@/helpers/constants";
 
+// Function to format review counts for display in the table
 const reviewCountFormatter = (params: ValueFormatterParams) => {
   return params.value ? params.value : "";
 };
@@ -34,6 +35,7 @@ const Home = () => {
     setRowData(newData);
   }, [products]);
 
+  // Callback function for cell value change
   const handleCellValueChanged = useCallback(
     (e: any) => {
       const { data, newValue } = e;
@@ -47,6 +49,7 @@ const Home = () => {
     [dispatch, rowData]
   );
 
+  // Define column definitions for the table
   const cols: ColDef<TProduct>[] = useMemo(
     () => [
       {

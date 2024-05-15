@@ -1,3 +1,8 @@
+/*
+  This module contains utility functions for making API calls using Axios.
+  It includes functions for setting up the client, making API calls, and handling responses/errors.
+*/
+
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 const baseHeaders: Record<string, string> = {

@@ -1,3 +1,9 @@
+/**
+ * Store Component
+ * 
+ * This module sets up and configures Redux store using @reduxjs/toolkit and 
+ * redux-persist for state persistence.
+ */
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from '@/store/slices';
 
