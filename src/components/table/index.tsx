@@ -14,9 +14,17 @@ type TableProps<T> = {
   rows: T[];
   cols: ColDef<T>[];
   onGridReady?: (params: any) => void;
+  title: string;
+  children: React.ReactNode;
 };
 
-const Table = <T,>({ rows, cols, onGridReady }: TableProps<T>) => {
+const Table = <T,>({
+  rows,
+  cols,
+  onGridReady,
+  title,
+  children,
+}: TableProps<T>) => {
   const defaultColDef = useMemo<ColDef>(() => {
     return {
       editable: true,
@@ -42,17 +50,23 @@ const Table = <T,>({ rows, cols, onGridReady }: TableProps<T>) => {
   );
 
   return (
-    <div className="ag-theme-quartz h-full">
-      <AgGridReact<T>
-        rowData={rows}
-        columnDefs={cols}
-        defaultColDef={defaultColDef}
-        gridOptions={gridOptions}
-        onGridReady={(params) => {
-          onGridReady?.(params);
-        }}
-        autoSizeStrategy={autoSizeStrategy}
-      />
+    <div className="flex flex-col h-full card reliant-border">
+      <div className="px-8 py-5 flex flex-row items-center justify-between">
+        <h4 className="text-lg font-semibold text-black">{title}</h4>
+        {children}
+      </div>
+      <div className="ag-theme-quartz h-full px-8 pb-8">
+        <AgGridReact<T>
+          rowData={rows}
+          columnDefs={cols}
+          defaultColDef={defaultColDef}
+          gridOptions={gridOptions}
+          onGridReady={(params) => {
+            onGridReady?.(params);
+          }}
+          autoSizeStrategy={autoSizeStrategy}
+        />
+      </div>
     </div>
   );
 };

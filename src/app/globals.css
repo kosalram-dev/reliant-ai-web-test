@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --divider: rgba(145, 158, 171, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,6 +14,7 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    --divider: rgba(145, 158, 171, 0.2);
   }
 }
 
@@ -24,6 +26,29 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+.main {
+  width: calc(100% - 64px);
+}
+
+.reliant-border {
+  margin: 0px;
+  flex-shrink: 0;
+  border-bottom-width: thin;
+  border-color: var(--divider);
+  border-style: solid;
+}
+
+.reliant-shadow {
+  box-shadow: 0px 0px 2px 0px rgba(145, 158, 171, 0.2),
+    0px 12px 24px -4px rgba(145, 158, 171, 0.12);
+}
+
+.card {
+  box-shadow: 0px 0px 2px 0px rgba(145, 158, 171, 0.2),
+    0px 12px 24px -4px rgba(145, 158, 171, 0.12);
+  border-radius: 1rem;
 }
 
 @layer utilities {

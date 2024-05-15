@@ -156,13 +156,49 @@ const Home = () => {
     [cellToReview.colKey, cellToReview.rowIndex]
   );
 
+  const handleSplitRow = useCallback(() => {
+    const selectedRow = rowData[cellToReview.rowIndex];
+    if (!selectedRow || !selectedRow.rating || !selectedRow.rating.count)
+      return;
+
+    // Get the available alternate values
+    const alternateValues = REVIEW_COUNTS.filter(
+      (count) => count !== selectedRow.rating.count
+    );
+
+    // Create a new row for each alternate value
+    const updatedData: TProduct[] = alternateValues.map((count) => ({
+      ...selectedRow,
+      rating: { ...selectedRow.rating, count: count },
+    }));
+
+    // Insert the new rows by replacing the selected row
+    const index = cellToReview.rowIndex + 1;
+    const updatedRowData = [
+      ...rowData.slice(0, index - 1),
+      ...updatedData,
+      ...rowData.slice(index),
+    ];
+
+    dispatch(updateProductsAction(updatedRowData));
+  }, [cellToReview.rowIndex, dispatch, rowData]);
+
   return (
     <section className=" h-[600px] m-4">
       <Table<TProduct>
         rows={rowData}
         cols={cols}
         onGridReady={handleGridReady}
-      />
+        title="Products"
+      >
+        <button
+          type="button"
+          className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+          onClick={handleSplitRow}
+        >
+          Split Row
+        </button>
+      </Table>
     </section>
   );
 };
