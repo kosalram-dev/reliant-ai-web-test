@@ -23,7 +23,7 @@ type TableProps<T> = {
   cols: ColDef<T>[];
   onGridReady?: (params: any) => void;
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const Table = <T,>({
