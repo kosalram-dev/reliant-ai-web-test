@@ -2,15 +2,26 @@ import { createSlice } from '@reduxjs/toolkit';
 import { homeService } from '@/store/services';
 import { AppDispatch } from '..';
 import { TProduct } from '@/types';
+import { REVIEW_COUNTS } from '@/helpers/constants';
+
+type TCellToReview = {
+  rowIndex: number;
+  colKey: string;
+};
 
 export interface THomeState {
     loading: boolean;
     products: TProduct[];
+    cellToReview: TCellToReview;
 }
 
 const initialState: THomeState = {
     loading: true,
     products:  [],
+    cellToReview: {
+      rowIndex: -1,
+      colKey: "rating.count"
+    }
 };
 
 const slice = createSlice({
@@ -24,24 +35,29 @@ const slice = createSlice({
       }
     },
     getAllProductsSuccess: (state, action) => {
+      /**
+       * The snippet below identifies the first unreviewed cell's rowIndex
+       * For demo purposes, the colKey is hardcoded to 'rating.count', so this logic of review will 
+       * always happens in "Total Reviews Count" column
+       */
+      const unreviewedCellRowIndex = action.payload.findIndex(
+        (product: TProduct) => !REVIEW_COUNTS.includes(product.rating.count)
+      );
+
       return {
         ...state,
         products: action.payload,
         loading: false,
+        cellToReview: {
+          ...state.cellToReview,
+          rowIndex: unreviewedCellRowIndex,
+        }
       };
     },
     getAllProductsFail: (state) => {
       return {
         ...state,
         loading: false,
-      };
-    },
-    updateProducts: (state, action) => {
-      const data = action.payload;
-
-      return {
-        ...state,
-        products: data,
       };
     },
   },
@@ -62,6 +78,6 @@ export const getAllProductsAction = () => async (dispatch: AppDispatch) => {
 };
 
 export const updateProductsAction = (data: TProduct[]) => async (dispatch: AppDispatch) => {
-  const { updateProducts } = slice.actions;
-  dispatch(updateProducts(data));
+  const { getAllProductsSuccess } = slice.actions;
+  dispatch(getAllProductsSuccess(data));
 };
